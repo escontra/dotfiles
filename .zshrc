@@ -1,6 +1,51 @@
+# Download Znap, if it's not there yet.
+# [[ -r ~/Repos/znap/znap.zsh ]] ||
+#     git clone --depth 1 -- \
+#         https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
+# source ~/Repos/znap/znap.zsh  # Start Znap
+
+export PATH=/opt/homebrew/bin:$PATH
+
 # Source zsh plugins
 source $(brew --prefix)/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Vi commands
+bindkey -v
+export KEYTIMEOUT=1
+
+x-yank() {
+    zle copy-region-as-kill
+    print -rn -- $CUTBUFFER | xclip -sel clipboard
+}
+zle -N x-yank
+
+x-cut() {
+    zle kill-region
+    print -rn -- $CUTBUFFER | xclip -sel clipboard
+}
+zle -N x-cut
+
+x-paste() {
+    PASTE=$(xclip -o -sel clipboard)
+    LBUFFER="$LBUFFER${RBUFFER:0:1}"
+    RBUFFER="$PASTE${RBUFFER:1:${#RBUFFER}}"
+}
+zle -N x-paste
+
+bindkey -M vicmd "y" x-yank
+bindkey -M vicmd "Y" x-cut
+bindkey -M vicmd "p" x-paste
+bindkey -M vicmd "^K" up-history
+bindkey -M vicmd "^J" down-history
+
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
+# Start line editor in command mode.
+zle-line-init() { zle vi-cmd-mode; }
+zle -N zle-line-init
 
 # Aliases for common dirs
 alias home="cd ~"
@@ -65,8 +110,9 @@ export BG2=0xff414550
 
 source "$HOME/.cargo/env"
 
+
 # Only load conda into path but dont actually use the bloat that comes with it
-export PATH="$HOME/miniforge3/bin:/usr/local/anaconda3/bin:$PATH:$(brew --prefix)/opt/llvm/bin"
+# export PATH="$HOME/miniforge3/bin:/usr/local/anaconda3/bin:$PATH:$(brew --prefix)/opt/llvm/bin"
 export NNN_TMPFILE="$HOME/.config/nnn/.lastd"
 export NNN_OPTS="AdHoU"
 export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
