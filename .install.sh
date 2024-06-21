@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+# Install instructions are fairly simple:
+# > bash install.sh # Should install everything. You will need to grant some permissions as different things boot up.
+# Head to .config/skhd/skhdrc which contains some specific settings for setting up Space focus.
+
 # Install xCode cli tools
 echo "Installing commandline tools..."
 xcode-select --install
@@ -151,7 +155,6 @@ brew install --cask font-fira-code
 
 # Symlink zshrc and yabairc.
 ln -s ~/dotfiles/.zshrc ~/.zshrc
-ls -s ~/dotfiles/.config/yabai/yabairc ~/.yabairc
 
 # Copying and checking out configuration files
 echo "Planting Configuration Files..."
@@ -170,12 +173,18 @@ curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.
 mv $HOME/.config/sketchybar $HOME/.config/sketchybar_backup
 cp -r $HOME/dotfiles/.config/sketchybar $HOME/.config/sketchybar
 
+# Add configs.
 mv $HOME/.config/yabai $HOME/.config/yabai_backup
 cp -r $HOME/dotfiles/.config/yabai $HOME/.config/yabai
 
 mv $HOME/.config/skhd $HOME/.config/skhd_backup
 cp -r $HOME/dotfiles/.config/skhd $HOME/.config/skhd
 
+mv $XDG_CONFIG_HOME/starship.toml $XDG_CONFIG_HOME/starship_backup.toml
+cp -r $HOME/dotfiles/.config/starship.toml $XDG_CONFIG_HOME/starship.toml
+
+mv $XDG_CONFIG_HOME/alacritty $XDG_CONFIG_HOME/alacritty_backup
+cp -r $HOME/dotfiles/.config/alacritty $XDG_CONFIG_HOME/alacritty
 
 # Installing helix language server
 # git clone https://github.com/estin/simple-completion-language-server.git /tmp/simple-completion-language-server
