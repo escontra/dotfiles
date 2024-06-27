@@ -120,3 +120,8 @@ export EDITOR="$(which hx)"
 export VISUAL="$(which hx)"
 export MANPAGER="$(which nvim) +Man!"
 export XDG_CONFIG_HOME="$HOME/.config"
+
+# zsh-autosuggestions.
+bindkey '^ ' autosuggest-accept
+
+
