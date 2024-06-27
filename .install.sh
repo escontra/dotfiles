@@ -62,7 +62,7 @@ brew install yabai
 
 ### Terminal
 brew install neovim
-brew install helix
+# brew install helix
 brew install starship
 brew install zsh-autosuggestions
 brew install zsh-fast-syntax-highlighting
@@ -151,8 +151,9 @@ curl https://sh.rustup.rs -sSf | sh
 # sudo defaults write /Library/Preferences/com.apple.airport.bt.plist bluetoothCoexMgmt Hybrid
 
 # Symlink zshrc and yabairc.
-mv ~/.zshrc ~/.zshrc_backup
-ln -s ~/dotfiles/.zshrc ~/.zshrc
+[ -f "$HOME/.zshrc_backup" ] && rm -rf $HOME/.zshrc_backup
+[ -f "$HOME/.zshrc" ] && mv $HOME/.zshrc $HOME/.zshrc_backup
+ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 
 source $HOME/.zshrc
 
@@ -171,6 +172,8 @@ curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+
+# Configs!
 # sketchybar config.
 (git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua && cd /tmp/SbarLua/ && make install && rm -rf /tmp/SbarLua/)
 [ -d "$XDG_CONFIG_HOME/sketchybar_backup" ] && rm -rf $XDG_CONFIG_HOME/sketchybar_backup
@@ -202,18 +205,13 @@ cp -r $HOME/dotfiles/.config/alacritty $XDG_CONFIG_HOME/alacritty
 [ -d "$XDG_CONFIG_HOME/borders" ] && mv $XDG_CONFIG_HOME/borders $XDG_CONFIG_HOME/borders_backup
 cp -r $HOME/dotfiles/.config/borders $XDG_CONFIG_HOME/borders
 
-# borders config.
+# neovim config.
 [ -d "$XDG_CONFIG_HOME/nvim_backup" ] && rm -rf $XDG_CONFIG_HOME/nvim_backup
 [ -d "$XDG_CONFIG_HOME/nvim" ] && mv $XDG_CONFIG_HOME/nvim $XDG_CONFIG_HOME/nvim_backup
 cp -r $HOME/dotfiles/.config/nvim $XDG_CONFIG_HOME/nvim
 
-# Installing helix language server
-# git clone https://github.com/estin/simple-completion-language-server.git /tmp/simple-completion-language-server
-# (cd /tmp/simple-completion-language-server && cargo install --path .)
-# rm -rf /tmp/simple-completion-language-server
 
-
-cfg config --local status.showUntrackedFiles no
+# cfg config --local status.showUntrackedFiles no
 
 # Python Packages (mainly for data science)
 # echo "Installing Python Packages..."
