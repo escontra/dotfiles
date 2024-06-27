@@ -4,6 +4,20 @@
 # > bash install.sh # Should install everything. You will need to grant some permissions as different things boot up.
 # Head to .config/skhd/skhdrc which contains some specific settings for setting up Space focus.
 
+corp=false
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        --corp) corp=true ;;    # Set to true if the flag --corp is used
+        *) echo "Unknown parameter: $1"; exit 1 ;;
+    esac
+    shift
+done
+if [[ "$corp" == "true" ]]; then
+    echo "Installing corp config"
+else
+    echo "Installing non corp config"
+fi
+
 # Install xCode cli tools
 echo "Installing commandline tools..."
 xcode-select --install
@@ -41,14 +55,10 @@ brew install skhd
 brew install sketchybar
 brew install lua
 brew install nowplaying-cli
-# brew install borders
+if [[ "$corp" == "false" ]]; then
+  brew install borders
+fi
 brew install yabai
-
-### Science
-brew install mactex
-brew install hdf5
-brew install gnuplot
-brew install texlab
 
 ### Terminal
 brew install neovim
@@ -63,7 +73,6 @@ brew install chruby
 brew install ruby-install
 brew install lulu
 brew install btop
-# brew install svim
 brew install lazygit
 brew install wireguard-go
 brew install dooit
@@ -81,22 +90,7 @@ brew install --cask sf-symbols
 brew install --cask homebrew/cask-fonts/font-sf-mono
 brew install --cask homebrew/cask-fonts/font-sf-pro
 
-### Office
-# brew install --cask inkscape
-# brew install --cask libreoffice
-# brew install --cask zoom
-# brew install --cask meetingbar
-# brew install --cask skim
-# brew install --cask vlc
-
-### Reversing
-# brew install --cask machoview
-# brew install --cask hex-fiend
-# brew install --cask cutter
-# brew install --cask sloth
-
 ### Nice to have
-brew install --cask alfred
 brew install --cask spotify
 
 ### Fonts
@@ -104,6 +98,9 @@ brew install --cask sf-symbols
 brew install --cask font-hack-nerd-font
 brew install --cask font-jetbrains-mono
 brew install --cask font-fira-code
+
+# Install rust and cargo.
+curl https://sh.rustup.rs -sSf | sh
 
 # Mac App Store Apps
 # echo "Installing Mac App Store Apps..."
@@ -154,12 +151,15 @@ brew install --cask font-fira-code
 # sudo defaults write /Library/Preferences/com.apple.airport.bt.plist bluetoothCoexMgmt Hybrid
 
 # Symlink zshrc and yabairc.
+mv ~/.zshrc ~/.zshrc_backup
 ln -s ~/dotfiles/.zshrc ~/.zshrc
+
+source $HOME/.zshrc
 
 # Copying and checking out configuration files
 echo "Planting Configuration Files..."
 [ ! -d "$HOME/dotfiles" ] && git clone --bare git@github.com:Alescontrela/dotfiles.git $HOME/dotfiles
-git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout master
+# git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout master
 
 # Installing Fonts
 git clone https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
@@ -167,24 +167,45 @@ mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
 rm -rf /tmp/SFMono_Nerd_Font/
 curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
 
+# Install nvim plugged tool.
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-# Sketchybar config.
+# sketchybar config.
 (git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua && cd /tmp/SbarLua/ && make install && rm -rf /tmp/SbarLua/)
-mv $HOME/.config/sketchybar $HOME/.config/sketchybar_backup
-cp -r $HOME/dotfiles/.config/sketchybar $HOME/.config/sketchybar
+[ -d "$XDG_CONFIG_HOME/sketchybar_backup" ] && rm -rf $XDG_CONFIG_HOME/sketchybar_backup
+[ -d "$XDG_CONFIG_HOME/sketchybar" ] && mv $XDG_CONFIG_HOME/sketchybar $XDG_CONFIG_HOME/sketchybar_backup
+cp -r $HOME/dotfiles/.config/sketchybar $XDG_CONFIG_HOME/sketchybar
 
-# Add configs.
-mv $HOME/.config/yabai $HOME/.config/yabai_backup
-cp -r $HOME/dotfiles/.config/yabai $HOME/.config/yabai
+# yabai config.
+[ -d "$XDG_CONFIG_HOME/yabai_backup" ] && rm -rf $XDG_CONFIG_HOME/yabai_backup
+[ -d "$XDG_CONFIG_HOME/yabai" ] && mv $XDG_CONFIG_HOME/yabai $XDG_CONFIG_HOME/yabai_backup
+cp -r $HOME/dotfiles/.config/yabai $XDG_CONFIG_HOME/yabai
 
-mv $HOME/.config/skhd $HOME/.config/skhd_backup
-cp -r $HOME/dotfiles/.config/skhd $HOME/.config/skhd
+# skhd config.
+[ -d "$XDG_CONFIG_HOME/skhd_backup" ] && rm -rf $XDG_CONFIG_HOME/skhd_backup
+[ -d "$XDG_CONFIG_HOME/skhd" ] && mv $XDG_CONFIG_HOME/skhd $XDG_CONFIG_HOME/skhd_backup
+cp -r $HOME/dotfiles/.config/skhd $XDG_CONFIG_HOME/skhd
 
-mv $XDG_CONFIG_HOME/starship.toml $XDG_CONFIG_HOME/starship_backup.toml
+# Starship config.
+[ -d "$XDG_CONFIG_HOME/starship_backup.toml" ] && rm -rf $XDG_CONFIG_HOME/starship_backup.toml
+[ -d "$XDG_CONFIG_HOME/starship.toml" ] && mv $XDG_CONFIG_HOME/starship.toml $XDG_CONFIG_HOME/starship_backup.toml
 cp -r $HOME/dotfiles/.config/starship.toml $XDG_CONFIG_HOME/starship.toml
 
-mv $XDG_CONFIG_HOME/alacritty $XDG_CONFIG_HOME/alacritty_backup
+# alacritty config.
+[ -d "$XDG_CONFIG_HOME/alacritty_backup" ] && rm -rf $XDG_CONFIG_HOME/alacritty_backup
+[ -d "$XDG_CONFIG_HOME/alacritty" ] && mv $XDG_CONFIG_HOME/alacritty $XDG_CONFIG_HOME/alacritty_backup
 cp -r $HOME/dotfiles/.config/alacritty $XDG_CONFIG_HOME/alacritty
+
+# borders config.
+[ -d "$XDG_CONFIG_HOME/borders_backup" ] && rm -rf $XDG_CONFIG_HOME/borders_backup
+[ -d "$XDG_CONFIG_HOME/borders" ] && mv $XDG_CONFIG_HOME/borders $XDG_CONFIG_HOME/borders_backup
+cp -r $HOME/dotfiles/.config/borders $XDG_CONFIG_HOME/borders
+
+# borders config.
+[ -d "$XDG_CONFIG_HOME/nvim_backup" ] && rm -rf $XDG_CONFIG_HOME/nvim_backup
+[ -d "$XDG_CONFIG_HOME/nvim" ] && mv $XDG_CONFIG_HOME/nvim $XDG_CONFIG_HOME/nvim_backup
+cp -r $HOME/dotfiles/.config/nvim $XDG_CONFIG_HOME/nvim
 
 # Installing helix language server
 # git clone https://github.com/estin/simple-completion-language-server.git /tmp/simple-completion-language-server
@@ -192,7 +213,6 @@ cp -r $HOME/dotfiles/.config/alacritty $XDG_CONFIG_HOME/alacritty
 # rm -rf /tmp/simple-completion-language-server
 
 
-source $HOME/.zshrc
 cfg config --local status.showUntrackedFiles no
 
 # Python Packages (mainly for data science)
@@ -219,7 +239,9 @@ echo "Starting Services (grant permissions)..."
 skhd --start-service
 yabai --start-service
 brew services start sketchybar
-# brew services start borders
+if [[ "$corp" == "false" ]]; then
+  brew services start borders
+fi
 # brew services start svim
 
 csrutil status
