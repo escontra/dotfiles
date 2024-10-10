@@ -50,11 +50,11 @@ brew install wget
 # brew install mas
 brew install gh
 brew install ifstat
-# brew install switchaudio-osx
+brew install switchaudio-osx
 brew install skhd
 brew install sketchybar
 brew install lua
-# brew install nowplaying-cli
+brew install nowplaying-cli
 if [[ "$corp" == "false" ]]; then
   brew install borders
 fi
