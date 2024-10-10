@@ -220,7 +220,7 @@ echo "Planting neovim config..."
 [ -d "$XDG_CONFIG_HOME/nvim" ] && mv $XDG_CONFIG_HOME/nvim $XDG_CONFIG_HOME/nvim_backup
 cp -r $HOME/dotfiles/.config/nvim $XDG_CONFIG_HOME/nvim
 
-
+source $HOME/.zshrc
 # cfg config --local status.showUntrackedFiles no
 
 # Python Packages (mainly for data science)
@@ -244,8 +244,8 @@ cp -r $HOME/dotfiles/.config/nvim $XDG_CONFIG_HOME/nvim
 
 # Start Services
 echo "Starting Services (grant permissions)..."
-skhd --start-service
-yabai --start-service
+brew services start skhd
+brew services start yabai
 brew services start sketchybar
 if [[ "$corp" == "false" ]]; then
   brew services start borders
