@@ -163,6 +163,7 @@ ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 
 # source $HOME/.zshrc
 export XDG_CONFIG_HOME="$HOME/.config"
+[ -d "$XDG_CONFIG_HOME/sketchybar_backup" ] && mkdir $XDG_CONFIG_HOME
 
 
 # Installing Fonts
