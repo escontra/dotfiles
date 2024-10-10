@@ -1,4 +1,5 @@
 #!/bin/zsh
+exec zsh
 
 # Install instructions are fairly simple:
 # > bash install.sh # Should install everything. You will need to grant some permissions as different things boot up.
