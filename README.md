@@ -15,7 +15,7 @@ My macOS configuration files.
 Most setup steps are in `.install.sh`
 
 ```bash
-curl -L https://raw.githubusercontent.com/Alescontrela/dotfiles/master/.install.sh | sh
+bash <(curl -fsSL https://raw.githubusercontent.com/Alescontrela/dotfiles/master/.install.sh)
 ```
 
 
