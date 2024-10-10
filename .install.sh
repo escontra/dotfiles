@@ -161,9 +161,9 @@ echo "Planting Zsh config..."
 [ -f "$HOME/.zshrc" ] && mv $HOME/.zshrc $HOME/.zshrc_backup
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 
-# source $HOME/.zshrc
+# Make config directory.
 export XDG_CONFIG_HOME="$HOME/.config"
-[ -d "$XDG_CONFIG_HOME/sketchybar_backup" ] && mkdir $XDG_CONFIG_HOME
+[ ! -d "$XDG_CONFIG_HOME" ] && mkdir -p $XDG_CONFIG_HOME
 
 
 # Installing Fonts
