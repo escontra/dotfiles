@@ -66,8 +66,8 @@ alias cfg="git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias push="git push"
 alias g="lazygit"
 
-eval "$(starship init zsh)"
-eval "$(zoxide init --cmd cd zsh)"
+# eval "$(starship init zsh)"
+# eval "$(zoxide init --cmd cd zsh)"
 
 alias ssh="TERM=xterm-256color ssh"
 
@@ -108,7 +108,7 @@ export BG0=0xff2c2e34
 export BG1=0xff363944
 export BG2=0xff414550
 
-source "$HOME/.cargo/env"
+# source "$HOME/.cargo/env"
 
 
 # Only load conda into path but dont actually use the bloat that comes with it
