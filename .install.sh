@@ -1,5 +1,4 @@
 #!/bin/zsh
-exec zsh
 
 # Install instructions are fairly simple:
 # > bash install.sh # Should install everything. You will need to grant some permissions as different things boot up.
@@ -27,7 +26,7 @@ xcode-select --install
 ## Install
 echo "Installing Brew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-export PATH=/opt/homebrew/bin:$PATH
+# export PATH=/opt/homebrew/bin:$PATH
 brew analytics off
 
 ## Taps
@@ -91,8 +90,8 @@ brew install --cask spotify
 
 ### Fonts
 brew install --cask sf-symbols
-brew install --cask homebrew/cask-fonts/font-sf-mono
-brew install --cask homebrew/cask-fonts/font-sf-pro
+# brew install --cask homebrew/cask-fonts/font-sf-mono
+# brew install --cask homebrew/cask-fonts/font-sf-pro
 brew install --cask font-hack-nerd-font
 brew install --cask font-jetbrains-mono
 brew install --cask font-fira-code
@@ -151,21 +150,10 @@ brew install --cask font-fira-code
 # Copying and checking out configuration files
 echo "Planting Configuration Files..."
 # [ ! -d "$HOME/dotfiles" ] && git clone --bare https://github.com/Alescontrela/dotfiles.git $HOME/dotfiles
-[ ! -d "$HOME/dotfiles" ] && git clone --branch master https://github.com/Alescontrela/dotfiles.git $HOME/dotfiles
+# [ ! -d "$HOME/dotfiles" ] && git clone --branch master https://github.com/Alescontrela/dotfiles.git $HOME/dotfiles
 # git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout master
-
-
-
-# Symlink zshrc and yabairc.
-echo "Planting Zsh config..."
-[ -f "$HOME/.zshrc_backup" ] && rm -rf $HOME/.zshrc_backup
-[ -f "$HOME/.zshrc" ] && mv $HOME/.zshrc $HOME/.zshrc_backup
-ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
-
-# Make config directory.
-export XDG_CONFIG_HOME="$HOME/.config"
-[ ! -d "$XDG_CONFIG_HOME" ] && mkdir -p $XDG_CONFIG_HOME
-
+[ ! -d "$HOME/dotfiles" ] && git clone --bare https://github.com/Alescontrela/dotfiles.git $HOME/dotfiles
+git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout master
 
 # Installing Fonts
 echo "Installing fonts..."
@@ -173,6 +161,16 @@ git clone https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SF
 mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
 rm -rf /tmp/SFMono_Nerd_Font/
 curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+
+# Symlink zshrc and yabairc.
+# echo "Planting Zsh config..."
+# [ -f "$HOME/.zshrc_backup" ] && rm -rf $HOME/.zshrc_backup
+# [ -f "$HOME/.zshrc" ] && mv $HOME/.zshrc $HOME/.zshrc_backup
+# ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
+
+# Make config directory.
+# export XDG_CONFIG_HOME="$HOME/.config"
+# [ ! -d "$XDG_CONFIG_HOME" ] && mkdir -p $XDG_CONFIG_HOME
 
 # Install nvim plugged tool.
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -188,16 +186,16 @@ echo "Installing Sketchybar and planting config..."
 cp -r $HOME/dotfiles/.config/sketchybar $XDG_CONFIG_HOME/sketchybar
 
 # yabai config.
-echo "Planting Yabai config..."
-[ -d "$XDG_CONFIG_HOME/yabai_backup" ] && rm -rf $XDG_CONFIG_HOME/yabai_backup
-[ -d "$XDG_CONFIG_HOME/yabai" ] && mv $XDG_CONFIG_HOME/yabai $XDG_CONFIG_HOME/yabai_backup
-cp -r $HOME/dotfiles/.config/yabai $XDG_CONFIG_HOME/yabai
+# echo "Planting Yabai config..."
+# [ -d "$XDG_CONFIG_HOME/yabai_backup" ] && rm -rf $XDG_CONFIG_HOME/yabai_backup
+# [ -d "$XDG_CONFIG_HOME/yabai" ] && mv $XDG_CONFIG_HOME/yabai $XDG_CONFIG_HOME/yabai_backup
+# cp -r $HOME/dotfiles/.config/yabai $XDG_CONFIG_HOME/yabai
 
 # skhd config.
-echo "Planting skhd config..."
-[ -d "$XDG_CONFIG_HOME/skhd_backup" ] && rm -rf $XDG_CONFIG_HOME/skhd_backup
-[ -d "$XDG_CONFIG_HOME/skhd" ] && mv $XDG_CONFIG_HOME/skhd $XDG_CONFIG_HOME/skhd_backup
-cp -r $HOME/dotfiles/.config/skhd $XDG_CONFIG_HOME/skhd
+# echo "Planting skhd config..."
+# [ -d "$XDG_CONFIG_HOME/skhd_backup" ] && rm -rf $XDG_CONFIG_HOME/skhd_backup
+# [ -d "$XDG_CONFIG_HOME/skhd" ] && mv $XDG_CONFIG_HOME/skhd $XDG_CONFIG_HOME/skhd_backup
+# cp -r $HOME/dotfiles/.config/skhd $XDG_CONFIG_HOME/skhd
 
 # Starship config.
 # [ -d "$XDG_CONFIG_HOME/starship_backup.toml" ] && rm -rf $XDG_CONFIG_HOME/starship_backup.toml
@@ -205,25 +203,25 @@ cp -r $HOME/dotfiles/.config/skhd $XDG_CONFIG_HOME/skhd
 # cp -r $HOME/dotfiles/.config/starship.toml $XDG_CONFIG_HOME/starship.toml
 
 # alacritty config.
-echo "Planting alacritty config..."
-[ -d "$XDG_CONFIG_HOME/alacritty_backup" ] && rm -rf $XDG_CONFIG_HOME/alacritty_backup
-[ -d "$XDG_CONFIG_HOME/alacritty" ] && mv $XDG_CONFIG_HOME/alacritty $XDG_CONFIG_HOME/alacritty_backup
-cp -r $HOME/dotfiles/.config/alacritty $XDG_CONFIG_HOME/alacritty
+# echo "Planting alacritty config..."
+# [ -d "$XDG_CONFIG_HOME/alacritty_backup" ] && rm -rf $XDG_CONFIG_HOME/alacritty_backup
+# [ -d "$XDG_CONFIG_HOME/alacritty" ] && mv $XDG_CONFIG_HOME/alacritty $XDG_CONFIG_HOME/alacritty_backup
+# cp -r $HOME/dotfiles/.config/alacritty $XDG_CONFIG_HOME/alacritty
 
 # borders config.
-echo "Planting borders config..."
-[ -d "$XDG_CONFIG_HOME/borders_backup" ] && rm -rf $XDG_CONFIG_HOME/borders_backup
-[ -d "$XDG_CONFIG_HOME/borders" ] && mv $XDG_CONFIG_HOME/borders $XDG_CONFIG_HOME/borders_backup
-cp -r $HOME/dotfiles/.config/borders $XDG_CONFIG_HOME/borders
+# echo "Planting borders config..."
+# [ -d "$XDG_CONFIG_HOME/borders_backup" ] && rm -rf $XDG_CONFIG_HOME/borders_backup
+# [ -d "$XDG_CONFIG_HOME/borders" ] && mv $XDG_CONFIG_HOME/borders $XDG_CONFIG_HOME/borders_backup
+# cp -r $HOME/dotfiles/.config/borders $XDG_CONFIG_HOME/borders
 
 # neovim config.
-echo "Planting neovim config..."
-[ -d "$XDG_CONFIG_HOME/nvim_backup" ] && rm -rf $XDG_CONFIG_HOME/nvim_backup
-[ -d "$XDG_CONFIG_HOME/nvim" ] && mv $XDG_CONFIG_HOME/nvim $XDG_CONFIG_HOME/nvim_backup
-cp -r $HOME/dotfiles/.config/nvim $XDG_CONFIG_HOME/nvim
+# echo "Planting neovim config..."
+# [ -d "$XDG_CONFIG_HOME/nvim_backup" ] && rm -rf $XDG_CONFIG_HOME/nvim_backup
+# [ -d "$XDG_CONFIG_HOME/nvim" ] && mv $XDG_CONFIG_HOME/nvim $XDG_CONFIG_HOME/nvim_backup
+# cp -r $HOME/dotfiles/.config/nvim $XDG_CONFIG_HOME/nvim
 
-export SHELL=$(which zsh)
-exec $SHELL -l
+# export SHELL=$(which zsh)
+# exec $SHELL -l
 source $HOME/.zshrc
 # cfg config --local status.showUntrackedFiles no
 
