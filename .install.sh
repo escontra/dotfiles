@@ -26,7 +26,7 @@ xcode-select --install
 ## Install
 echo "Installing Brew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# export PATH=/opt/homebrew/bin:$PATH
+export PATH=/opt/homebrew/bin:$PATH
 echo >> "$HOME/.zprofile"
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
 eval "$(/opt/homebrew/bin/brew shellenv)"
