@@ -221,6 +221,8 @@ echo "Planting neovim config..."
 [ -d "$XDG_CONFIG_HOME/nvim" ] && mv $XDG_CONFIG_HOME/nvim $XDG_CONFIG_HOME/nvim_backup
 cp -r $HOME/dotfiles/.config/nvim $XDG_CONFIG_HOME/nvim
 
+export SHELL=$(which zsh)
+exec $SHELL -l
 source $HOME/.zshrc
 # cfg config --local status.showUntrackedFiles no
 
