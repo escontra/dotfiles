@@ -20,6 +20,7 @@ fi
 
 # Install xCode cli tools
 echo "Installing commandline tools..."
+# [ -d "/Library/Developer/CommandLineTools" ] && sudo rm -rf "/Library/Developer/CommandLineTools"
 xcode-select --install
 
 # Homebrew
