@@ -21,8 +21,6 @@
 # Or whatever the correct version is 
 
 # Disabling SIP is required for MacOS Sequoia :( https://github.com/koekeishiya/yabai/issues/2324
-# Install from head: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)
-# and disable SIP.
 
 
 corp=false
