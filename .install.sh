@@ -161,7 +161,8 @@ echo "Planting Zsh config..."
 [ -f "$HOME/.zshrc" ] && mv $HOME/.zshrc $HOME/.zshrc_backup
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 
-source $HOME/.zshrc
+# source $HOME/.zshrc
+export XDG_CONFIG_HOME="$HOME/.config"
 
 
 # Installing Fonts
