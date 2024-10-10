@@ -67,6 +67,7 @@ echo "Installing Brew Formulae..."
 # brew install libomp
 # brew install armadillo
 brew install wget
+brew install node
 # brew install jq
 # brew install ripgrep
 # brew install bear
