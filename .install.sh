@@ -38,23 +38,23 @@ brew tap koekeishiya/formulae
 ## Formulae
 echo "Installing Brew Formulae..."
 ### Essentials
-brew install gsl
-brew install llvm
-brew install boost
-brew install libomp
-brew install armadillo
+# brew install gsl
+# brew install llvm
+# brew install boost
+# brew install libomp
+# brew install armadillo
 brew install wget
-brew install jq
-brew install ripgrep
-brew install bear
-brew install mas
+# brew install jq
+# brew install ripgrep
+# brew install bear
+# brew install mas
 brew install gh
 brew install ifstat
-brew install switchaudio-osx
+# brew install switchaudio-osx
 brew install skhd
 brew install sketchybar
 brew install lua
-brew install nowplaying-cli
+# brew install nowplaying-cli
 if [[ "$corp" == "false" ]]; then
   brew install borders
 fi
@@ -63,19 +63,19 @@ brew install yabai
 ### Terminal
 brew install neovim
 # brew install helix
-brew install starship
+# brew install starship
 brew install zsh-autosuggestions
 brew install zsh-fast-syntax-highlighting
-brew install zoxide
+# brew install zoxide
 
 ### Nice to have
 brew install chruby
 brew install ruby-install
-brew install lulu
+# brew install lulu
 brew install btop
-brew install lazygit
-brew install wireguard-go
-brew install dooit
+# brew install lazygit
+# brew install wireguard-go
+# brew install dooit
 
 ### Custom HEAD only forks
 # brew install fnnn --head # nnn fork (changed colors, keymappings)
@@ -84,23 +84,20 @@ brew install dooit
 echo "Installing Brew Casks..."
 ### Terminals & Browsers
 brew install --cask alacritty
-brew install --cask kitty
-brew install --cask orion
-brew install --cask sf-symbols
-brew install --cask homebrew/cask-fonts/font-sf-mono
-brew install --cask homebrew/cask-fonts/font-sf-pro
-
-### Nice to have
+# brew install --cask kitty
+# brew install --cask orion
 brew install --cask spotify
 
 ### Fonts
 brew install --cask sf-symbols
+brew install --cask homebrew/cask-fonts/font-sf-mono
+brew install --cask homebrew/cask-fonts/font-sf-pro
 brew install --cask font-hack-nerd-font
 brew install --cask font-jetbrains-mono
 brew install --cask font-fira-code
 
 # Install rust and cargo.
-curl https://sh.rustup.rs -sSf | sh
+# curl https://sh.rustup.rs -sSf | sh
 
 # Mac App Store Apps
 # echo "Installing Mac App Store Apps..."
@@ -150,19 +147,22 @@ curl https://sh.rustup.rs -sSf | sh
 ## Fix for MX Master 3S
 # sudo defaults write /Library/Preferences/com.apple.airport.bt.plist bluetoothCoexMgmt Hybrid
 
+# Copying and checking out configuration files
+echo "Planting Configuration Files..."
+[ ! -d "$HOME/dotfiles" ] && git clone --bare git@github.com:Alescontrela/dotfiles.git $HOME/dotfiles
+git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout master
+
 # Symlink zshrc and yabairc.
+echo "Planting Zsh config..."
 [ -f "$HOME/.zshrc_backup" ] && rm -rf $HOME/.zshrc_backup
 [ -f "$HOME/.zshrc" ] && mv $HOME/.zshrc $HOME/.zshrc_backup
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 
 source $HOME/.zshrc
 
-# Copying and checking out configuration files
-echo "Planting Configuration Files..."
-[ ! -d "$HOME/dotfiles" ] && git clone --bare git@github.com:Alescontrela/dotfiles.git $HOME/dotfiles
-# git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout master
 
 # Installing Fonts
+echo "Installing fonts..."
 git clone https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
 mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
 rm -rf /tmp/SFMono_Nerd_Font/
@@ -175,37 +175,43 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 # Configs!
 # sketchybar config.
+echo "Installing Sketchybar and planting config..."
 (git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua && cd /tmp/SbarLua/ && make install && rm -rf /tmp/SbarLua/)
 [ -d "$XDG_CONFIG_HOME/sketchybar_backup" ] && rm -rf $XDG_CONFIG_HOME/sketchybar_backup
 [ -d "$XDG_CONFIG_HOME/sketchybar" ] && mv $XDG_CONFIG_HOME/sketchybar $XDG_CONFIG_HOME/sketchybar_backup
 cp -r $HOME/dotfiles/.config/sketchybar $XDG_CONFIG_HOME/sketchybar
 
 # yabai config.
+echo "Planting Yabai config..."
 [ -d "$XDG_CONFIG_HOME/yabai_backup" ] && rm -rf $XDG_CONFIG_HOME/yabai_backup
 [ -d "$XDG_CONFIG_HOME/yabai" ] && mv $XDG_CONFIG_HOME/yabai $XDG_CONFIG_HOME/yabai_backup
 cp -r $HOME/dotfiles/.config/yabai $XDG_CONFIG_HOME/yabai
 
 # skhd config.
+echo "Planting skhd config..."
 [ -d "$XDG_CONFIG_HOME/skhd_backup" ] && rm -rf $XDG_CONFIG_HOME/skhd_backup
 [ -d "$XDG_CONFIG_HOME/skhd" ] && mv $XDG_CONFIG_HOME/skhd $XDG_CONFIG_HOME/skhd_backup
 cp -r $HOME/dotfiles/.config/skhd $XDG_CONFIG_HOME/skhd
 
 # Starship config.
-[ -d "$XDG_CONFIG_HOME/starship_backup.toml" ] && rm -rf $XDG_CONFIG_HOME/starship_backup.toml
-[ -d "$XDG_CONFIG_HOME/starship.toml" ] && mv $XDG_CONFIG_HOME/starship.toml $XDG_CONFIG_HOME/starship_backup.toml
-cp -r $HOME/dotfiles/.config/starship.toml $XDG_CONFIG_HOME/starship.toml
+# [ -d "$XDG_CONFIG_HOME/starship_backup.toml" ] && rm -rf $XDG_CONFIG_HOME/starship_backup.toml
+# [ -d "$XDG_CONFIG_HOME/starship.toml" ] && mv $XDG_CONFIG_HOME/starship.toml $XDG_CONFIG_HOME/starship_backup.toml
+# cp -r $HOME/dotfiles/.config/starship.toml $XDG_CONFIG_HOME/starship.toml
 
 # alacritty config.
+echo "Planting alacritty config..."
 [ -d "$XDG_CONFIG_HOME/alacritty_backup" ] && rm -rf $XDG_CONFIG_HOME/alacritty_backup
 [ -d "$XDG_CONFIG_HOME/alacritty" ] && mv $XDG_CONFIG_HOME/alacritty $XDG_CONFIG_HOME/alacritty_backup
 cp -r $HOME/dotfiles/.config/alacritty $XDG_CONFIG_HOME/alacritty
 
 # borders config.
+echo "Planting borders config..."
 [ -d "$XDG_CONFIG_HOME/borders_backup" ] && rm -rf $XDG_CONFIG_HOME/borders_backup
 [ -d "$XDG_CONFIG_HOME/borders" ] && mv $XDG_CONFIG_HOME/borders $XDG_CONFIG_HOME/borders_backup
 cp -r $HOME/dotfiles/.config/borders $XDG_CONFIG_HOME/borders
 
 # neovim config.
+echo "Planting neovim config..."
 [ -d "$XDG_CONFIG_HOME/nvim_backup" ] && rm -rf $XDG_CONFIG_HOME/nvim_backup
 [ -d "$XDG_CONFIG_HOME/nvim" ] && mv $XDG_CONFIG_HOME/nvim $XDG_CONFIG_HOME/nvim_backup
 cp -r $HOME/dotfiles/.config/nvim $XDG_CONFIG_HOME/nvim
