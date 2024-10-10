@@ -20,6 +20,11 @@
 # softwareupdate -i "Command Line Tools for Xcode-16.0"
 # Or whatever the correct version is 
 
+# Disabling SIP is required for MacOS Sequoia :( https://github.com/koekeishiya/yabai/issues/2324
+# Install from head: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)
+# and disable SIP.
+
+
 corp=false
 while [[ "$#" -gt 0 ]]; do
     case $1 in
