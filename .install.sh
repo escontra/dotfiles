@@ -149,8 +149,10 @@ brew install --cask font-fira-code
 
 # Copying and checking out configuration files
 echo "Planting Configuration Files..."
-[ ! -d "$HOME/dotfiles" ] && git clone --bare git@github.com:Alescontrela/dotfiles.git $HOME/dotfiles
+[ ! -d "$HOME/dotfiles" ] && git clone --bare https://github.com/Alescontrela/dotfiles.git $HOME/dotfiles
 git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout master
+
+
 
 # Symlink zshrc and yabairc.
 echo "Planting Zsh config..."
