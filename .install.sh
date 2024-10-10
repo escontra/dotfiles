@@ -29,6 +29,8 @@ echo "Installing Brew..."
 # export PATH=/opt/homebrew/bin:$PATH
 brew analytics off
 
+exec zsh
+
 ## Taps
 echo "Tapping Brew..."
 brew tap homebrew/cask-fonts
