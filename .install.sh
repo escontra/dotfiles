@@ -35,7 +35,7 @@ brew analytics off
 
 ## Taps
 echo "Tapping Brew..."
-brew tap homebrew/cask-fonts
+# brew tap homebrew/cask-fonts
 brew tap FelixKratz/formulae
 brew tap koekeishiya/formulae
 
