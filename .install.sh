@@ -4,6 +4,22 @@
 # > bash install.sh # Should install everything. You will need to grant some permissions as different things boot up.
 # Head to .config/skhd/skhdrc which contains some specific settings for setting up Space focus.
 
+# Troubleshooting:
+# In case you get an error like:
+# > Error: Your Command Line Tools are too outdated.
+#   Update them from Software Update in System Settings.
+#   If that doesn't show you any updates, run:
+#     sudo rm -rf /Library/Developer/CommandLineTools
+#     sudo xcode-select --install
+#   Alternatively, manually download them from:
+#     https://developer.apple.com/download/all/.
+#   You should download the Command Line Tools for Xcode 16.0.
+# Follow the instructions in: https://stackoverflow.com/questions/42538171/how-to-update-xcode-command-line-tools
+# Basically:
+# softwareupdate --list
+# softwareupdate -i "Command Line Tools for Xcode-16.0"
+# Or whatever the correct version is 
+
 corp=false
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -250,8 +266,8 @@ source $HOME/.zshrc
 
 # Start Services
 echo "Starting Services (grant permissions)..."
-brew services start skhd
-brew services start yabai
+skhd --start-service
+yabai --start-service
 brew services start sketchybar
 if [[ "$corp" == "false" ]]; then
   brew services start borders
