@@ -74,15 +74,16 @@ brew install node
 # brew install mas
 brew install gh
 brew install ifstat
-brew install switchaudio-osx
-brew install skhd
-brew install sketchybar
+# brew install switchaudio-osx
+# brew install skhd
+# brew install sketchybar
 brew install lua
 brew install nowplaying-cli
 if [[ "$corp" == "false" ]]; then
   brew install borders
 fi
-brew install yabai
+# brew install yabai
+brew install --cask nikitabobko/tap/aerospace
 
 ### Terminal
 brew install neovim
@@ -182,11 +183,11 @@ echo "Planting Configuration Files..."
 git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout master
 
 # Installing Fonts
-echo "Installing fonts..."
-git clone https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
-mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
-rm -rf /tmp/SFMono_Nerd_Font/
-curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+# echo "Installing fonts..."
+# git clone https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
+# mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
+# rm -rf /tmp/SFMono_Nerd_Font/
+# curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
 
 # Symlink zshrc and yabairc.
 # echo "Planting Zsh config..."
@@ -205,11 +206,11 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 # Configs!
 # sketchybar config.
-echo "Installing Sketchybar and planting config..."
-(git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua && cd /tmp/SbarLua/ && make install && rm -rf /tmp/SbarLua/)
-[ -d "$XDG_CONFIG_HOME/sketchybar_backup" ] && rm -rf $XDG_CONFIG_HOME/sketchybar_backup
-[ -d "$XDG_CONFIG_HOME/sketchybar" ] && mv $XDG_CONFIG_HOME/sketchybar $XDG_CONFIG_HOME/sketchybar_backup
-cp -r $HOME/dotfiles/.config/sketchybar $XDG_CONFIG_HOME/sketchybar
+# echo "Installing Sketchybar and planting config..."
+# (git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua && cd /tmp/SbarLua/ && make install && rm -rf /tmp/SbarLua/)
+# [ -d "$XDG_CONFIG_HOME/sketchybar_backup" ] && rm -rf $XDG_CONFIG_HOME/sketchybar_backup
+# [ -d "$XDG_CONFIG_HOME/sketchybar" ] && mv $XDG_CONFIG_HOME/sketchybar $XDG_CONFIG_HOME/sketchybar_backup
+# cp -r $HOME/dotfiles/.config/sketchybar $XDG_CONFIG_HOME/sketchybar
 
 # yabai config.
 # echo "Planting Yabai config..."
@@ -271,13 +272,13 @@ source $HOME/.zshrc
 
 
 # Start Services
-echo "Starting Services (grant permissions)..."
-skhd --start-service
-yabai --start-service
-brew services start sketchybar
-if [[ "$corp" == "false" ]]; then
-  brew services start borders
-fi
+# echo "Starting Services (grant permissions)..."
+# skhd --start-service
+# yabai --start-service
+# brew services start sketchybar
+# if [[ "$corp" == "false" ]]; then
+#   brew services start borders
+# fi
 # brew services start svim
 
 csrutil status
