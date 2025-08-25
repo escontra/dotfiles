@@ -76,6 +76,7 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # See https://nikitabobko.github.io/AeroSpace/guide#a-note-on-mission-control.
 # Prevents windows from showing up too small in mission control.
 defaults write com.apple.dock expose-group-apps -bool true && killall Dock
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
 
 
 # Additional settings...
