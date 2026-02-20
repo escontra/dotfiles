@@ -121,6 +121,23 @@ git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout master
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+# Set ZSH as default terminal.
+# 1. Determine the path to zsh
+ZSH_PATH=$(which zsh)
+# 2. Check if zsh is already the default to avoid unnecessary prompts
+if [[ "$SHELL" != "$ZSH_PATH" ]]; then
+    echo "Changing default shell to zsh..."
+    
+    # macOS-specific check for shell changes
+    if [[ "$(uname)" == "Darwin" ]]; then
+        chsh -s "$ZSH_PATH"
+    else
+        # Standard Linux chsh
+        chsh -s "$ZSH_PATH"
+    fi
+else
+    echo "zsh is already your default shell."
+fi
 
 echo "Installation complete...\n"
 
