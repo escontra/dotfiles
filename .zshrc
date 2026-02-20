@@ -65,7 +65,17 @@ zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
+# Fix for macOS vs Linux dircolors
+if [[ "$(uname)" == "Darwin" ]]; then
+    # On macOS, use the built-in colors (or install 'coreutils' via Homebrew)
+    export CLICOLOR=1
+    export LSCOLORS=Gxfxcxdxbxegedabagacad
+else
+    # On Linux, use dircolors as usual
+    if command -v dircolors >/dev/null 2>&1; then
+        eval "$(dircolors -b)"
+    fi
+fi
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
