@@ -1,3 +1,7 @@
+[terminal.shell]
+program = "/bin/zsh"
+args = ["--login"]
+
 # Default colors
 [colors.primary]
 # background = '#2c2c2c'
@@ -45,3 +49,5 @@ blue    = '#556b79'
 magenta = '#6e4962'
 cyan    = '#5c8482'
 white   = '#828282'
+
+[terminal]
